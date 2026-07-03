@@ -1,0 +1,33 @@
+<div class="sidebar">
+  <div class="sidebar__brand">
+    <span class="sidebar__brand-mark"></span>
+    <span class="sidebar__brand-name">Nouk</span>
+  </div>
+
+  <button type="button" class="sidebar__new-chat" (click)="newChat()">
+    <mat-icon>add</mat-icon>
+    <span>New chat</span>
+  </button>
+
+  <nav class="sidebar__list" aria-label="Conversations">
+    @if (store.loadingSummaries()) {
+      @for (row of skeletonRows; track row) {
+        <div class="sidebar__skeleton-row">
+          <app-skeleton height="36px" radius="8px" />
+        </div>
+      }
+    } @else if (store.summaries().length === 0) {
+      <p class="sidebar__empty">No conversations yet. Start one above.</p>
+    } @else {
+      @for (summary of store.summaries(); track summary.id) {
+        <app-conversation-list-item
+          [summary]="summary"
+          [active]="summary.id === activeId()"
+          (opened)="open(summary.id)"
+          (rename)="rename(summary.id, $event)"
+          (deleteConversation)="remove(summary.id)"
+        />
+      }
+    }
+  </nav>
+</div>

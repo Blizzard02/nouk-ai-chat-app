@@ -1,0 +1,73 @@
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: var(--app-space-4) var(--app-space-3);
+  gap: var(--app-space-4);
+}
+
+.sidebar__brand {
+  display: flex;
+  align-items: center;
+  gap: var(--app-space-2);
+  padding: 0 var(--app-space-2);
+}
+
+.sidebar__brand-mark {
+  width: 22px;
+  height: 22px;
+  border-radius: 7px;
+  background: var(--app-gradient-brand);
+}
+
+.sidebar__brand-name {
+  font-weight: 700;
+  font-size: 1.05rem;
+  letter-spacing: 0.01em;
+}
+
+.sidebar__new-chat {
+  display: flex;
+  align-items: center;
+  gap: var(--app-space-2);
+  border: 1px solid var(--app-border-subtle);
+  background: var(--app-surface-raised);
+  color: var(--mat-sys-on-surface);
+  border-radius: var(--app-radius-md);
+  padding: var(--app-space-3) var(--app-space-3);
+  font: inherit;
+  font-weight: 500;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition:
+    border-color 120ms ease,
+    transform 80ms ease;
+
+  &:hover {
+    border-color: #7c4dff;
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+}
+
+.sidebar__list {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin: 0 calc(-1 * var(--app-space-1));
+}
+
+.sidebar__empty {
+  color: var(--mat-sys-on-surface-variant);
+  font-size: 0.85rem;
+  padding: var(--app-space-3);
+  text-align: center;
+}
+
+.sidebar__skeleton-row {
+  padding: var(--app-space-1) var(--app-space-1);
+}

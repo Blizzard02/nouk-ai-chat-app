@@ -1,0 +1,40 @@
+@if (editing()) {
+  <input
+    #titleInput
+    class="item item--editing"
+    type="text"
+    [(ngModel)]="draftTitle"
+    (keydown.enter)="confirmEdit()"
+    (keydown.escape)="cancelEdit()"
+    (blur)="confirmEdit()"
+  />
+} @else {
+  <div class="item" [class.item--active]="active()">
+    <button type="button" class="item__label" (click)="opened.emit()">
+      <span class="item__title">{{ summary().title }}</span>
+    </button>
+
+    <button
+      type="button"
+      mat-icon-button
+      class="item__menu-trigger"
+      [matMenuTriggerFor]="menu"
+      matTooltip="More options"
+      aria-label="Conversation options"
+      (click)="$event.stopPropagation()"
+    >
+      <mat-icon>more_horiz</mat-icon>
+    </button>
+
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="startEditing()">
+        <mat-icon>edit</mat-icon>
+        <span>Rename</span>
+      </button>
+      <button mat-menu-item (click)="deleteConversation.emit()">
+        <mat-icon>delete_outline</mat-icon>
+        <span>Delete</span>
+      </button>
+    </mat-menu>
+  </div>
+}

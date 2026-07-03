@@ -1,0 +1,61 @@
+<header class="header">
+  <button
+    type="button"
+    mat-icon-button
+    class="header__menu-btn"
+    aria-label="Toggle sidebar"
+    (click)="menuToggle.emit()"
+  >
+    <mat-icon>menu</mat-icon>
+  </button>
+
+  <div class="header__title">
+    @if (store.activeConversation(); as conversation) {
+      @if (editing()) {
+        <input
+          #titleInput
+          class="header__title-input"
+          type="text"
+          [(ngModel)]="draftTitle"
+          (keydown.enter)="confirmEdit()"
+          (keydown.escape)="cancelEdit()"
+          (blur)="confirmEdit()"
+        />
+      } @else {
+        <button
+          type="button"
+          class="header__title-btn"
+          (click)="startEditing()"
+          matTooltip="Rename conversation"
+        >
+          {{ conversation.title }}
+        </button>
+      }
+    } @else {
+      <span class="header__title-static">Nouk AI Chat</span>
+    }
+  </div>
+
+  <div class="header__actions">
+    @if (store.activeConversation()) {
+      <button
+        type="button"
+        mat-icon-button
+        aria-label="Conversation settings"
+        matTooltip="Conversation settings"
+        (click)="uiState.toggleSettingsPanel()"
+      >
+        <mat-icon>tune</mat-icon>
+      </button>
+    }
+    <button
+      type="button"
+      mat-icon-button
+      [attr.aria-label]="theme.mode() === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'"
+      [matTooltip]="theme.mode() === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'"
+      (click)="theme.toggle()"
+    >
+      <mat-icon>{{ theme.mode() === 'dark' ? 'light_mode' : 'dark_mode' }}</mat-icon>
+    </button>
+  </div>
+</header>

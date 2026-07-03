@@ -1,0 +1,20 @@
+:host.app-skeleton {
+  display: block;
+  background: linear-gradient(
+    100deg,
+    var(--app-border-subtle) 30%,
+    light-dark(rgba(124, 77, 255, 0.14), rgba(124, 77, 255, 0.2)) 45%,
+    var(--app-border-subtle) 60%
+  );
+  background-size: 200% 100%;
+  animation: app-skeleton-shimmer 1.4s ease-in-out infinite;
+}
+
+@keyframes app-skeleton-shimmer {
+  0% {
+    background-position: 150% 0;
+  }
+  100% {
+    background-position: -50% 0;
+  }
+}

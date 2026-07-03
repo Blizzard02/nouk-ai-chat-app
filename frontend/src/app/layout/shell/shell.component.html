@@ -1,0 +1,17 @@
+<mat-sidenav-container class="shell">
+  <mat-sidenav
+    class="shell__sidenav"
+    [mode]="sidenavMode()"
+    [opened]="sidenavOpened()"
+    (openedChange)="sidenavOpened.set($event)"
+  >
+    <app-sidebar (conversationSelected)="onConversationSelected()" />
+  </mat-sidenav>
+
+  <mat-sidenav-content class="shell__content">
+    <app-header (menuToggle)="toggleSidenav()" />
+    <main class="shell__main">
+      <router-outlet />
+    </main>
+  </mat-sidenav-content>
+</mat-sidenav-container>
