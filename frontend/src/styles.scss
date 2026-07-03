@@ -1,0 +1,109 @@
+// Include theming for Angular Material with `mat.theme()`. Material's
+// generated CSS variables use the native `light-dark()` function, so a
+// single include serves both palettes — ThemeService just flips the
+// `color-scheme` property to switch between them.
+@use '@angular/material' as mat;
+
+:root {
+  color-scheme: light dark;
+
+  @include mat.theme(
+    (
+      color: (
+        primary: mat.$violet-palette,
+        tertiary: mat.$cyan-palette,
+      ),
+      typography: (
+        plain-family: 'Inter, "Helvetica Neue", Arial, sans-serif',
+        brand-family: 'Inter, "Helvetica Neue", Arial, sans-serif',
+      ),
+      density: 0,
+    )
+  );
+
+  // --- Bespoke design tokens (layered on top of Material's system tokens) ---
+  --app-font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  --app-radius-sm: 8px;
+  --app-radius-md: 14px;
+  --app-radius-lg: 20px;
+  --app-radius-pill: 999px;
+
+  --app-space-1: 4px;
+  --app-space-2: 8px;
+  --app-space-3: 12px;
+  --app-space-4: 16px;
+  --app-space-5: 24px;
+  --app-space-6: 32px;
+
+  --app-shell-max-width: 820px;
+
+  --app-gradient-brand: linear-gradient(135deg, #7c4dff 0%, #22d3ee 100%);
+
+  --app-surface-sunken: light-dark(#f3f1fa, #131019);
+  --app-surface-raised: light-dark(#ffffff, #1c1826);
+  --app-surface-overlay: light-dark(#ffffff, #221e2e);
+  --app-border-subtle: light-dark(rgba(24, 16, 51, 0.08), rgba(255, 255, 255, 0.08));
+  --app-shadow-elevated: light-dark(
+    0 8px 24px -8px rgba(43, 21, 92, 0.18),
+    0 8px 24px -8px rgba(0, 0, 0, 0.55)
+  );
+
+  --app-user-bubble-bg: light-dark(#7c4dff, #7c4dff);
+  --app-user-bubble-fg: #ffffff;
+  --app-assistant-bubble-bg: light-dark(#ffffff, #211d2c);
+  --app-assistant-bubble-fg: var(--mat-sys-on-surface);
+
+  --app-code-bg: light-dark(#1e1b2e, #0d0b14);
+  --app-code-fg: #e4e1f5;
+
+  --app-error-bg: light-dark(#fdecea, #3a1a1e);
+  --app-error-fg: light-dark(#8c1d18, #ff8a80);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background-color: var(--mat-sys-surface);
+  color: var(--mat-sys-on-surface);
+  font: var(--mat-sys-body-medium);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: rgba(124, 77, 255, 0.35);
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--app-border-subtle);
+  border-radius: var(--app-radius-pill);
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+.app-toast {
+  --mdc-snackbar-container-color: var(--app-surface-overlay);
+  --mdc-snackbar-supporting-text-color: var(--mat-sys-on-surface);
+}
+
+.app-toast--error {
+  --mdc-snackbar-container-color: var(--app-error-bg);
+  --mdc-snackbar-supporting-text-color: var(--app-error-fg);
+}
