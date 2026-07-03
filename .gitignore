@@ -1,0 +1,35 @@
+# Dependencies
+node_modules/
+
+# Env files
+.env
+.env.local
+*.env
+
+# Build output
+dist/
+build/
+out-tsc/
+.angular/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Editor
+.vscode/*
+!.vscode/extensions.json
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Coverage
+coverage/
+
+# Playwright
+e2e/test-results/
+e2e/playwright-report/
+e2e/blob-report/
+e2e/.cache/
