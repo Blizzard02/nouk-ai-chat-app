@@ -1,0 +1,82 @@
+<article class="bubble-row" [class.bubble-row--user]="isUser()">
+  <div class="bubble" [class.bubble--user]="isUser()" [class.bubble--error]="message().error">
+    @if (editing()) {
+      <div class="bubble__edit">
+        <textarea
+          class="bubble__edit-input"
+          rows="3"
+          [(ngModel)]="draftContent"
+          (keydown.enter)="onEditKeydown($event)"
+          (keydown.escape)="cancelEdit()"
+        ></textarea>
+        <div class="bubble__edit-actions">
+          <button type="button" mat-button (click)="cancelEdit()">Cancel</button>
+          <button type="button" mat-flat-button color="primary" (click)="confirmEdit()">
+            Save &amp; submit
+          </button>
+        </div>
+      </div>
+    } @else {
+      <app-markdown-content [content]="message().content" />
+
+      @if (streaming()) {
+        <span class="bubble__cursor" aria-hidden="true"></span>
+      }
+
+      @if (message().error) {
+        <div class="bubble__error">
+          <mat-icon>error_outline</mat-icon>
+          <span>{{ message().error }}</span>
+        </div>
+      }
+    }
+
+    @if (!editing()) {
+      <footer class="bubble__meta">
+        <span class="bubble__timestamp">{{ message().createdAt | date: 'short' }}</span>
+        <span class="bubble__tokens" matTooltip="Approximate token count"
+          >~{{ message().tokenEstimate }} tokens</span
+        >
+
+        <span class="bubble__actions">
+          <button
+            type="button"
+            mat-icon-button
+            class="bubble__action-btn"
+            [matTooltip]="copied() ? 'Copied!' : 'Copy message'"
+            [attr.aria-label]="copied() ? 'Copied' : 'Copy message'"
+            (click)="copy()"
+          >
+            <mat-icon>{{ copied() ? 'check' : 'content_copy' }}</mat-icon>
+          </button>
+
+          @if (isUser() && !actionsDisabled()) {
+            <button
+              type="button"
+              mat-icon-button
+              class="bubble__action-btn"
+              matTooltip="Edit message"
+              aria-label="Edit message"
+              (click)="startEdit()"
+            >
+              <mat-icon>edit</mat-icon>
+            </button>
+          }
+
+          @if (isLastAssistant() && !actionsDisabled()) {
+            <button
+              type="button"
+              mat-icon-button
+              class="bubble__action-btn"
+              matTooltip="Regenerate response"
+              aria-label="Regenerate response"
+              (click)="regenerateRequested.emit()"
+            >
+              <mat-icon>refresh</mat-icon>
+            </button>
+          }
+        </span>
+      </footer>
+    }
+  </div>
+</article>

@@ -1,0 +1,135 @@
+.bubble-row {
+  display: flex;
+  justify-content: flex-start;
+  padding: var(--app-space-1) 0;
+
+  &--user {
+    justify-content: flex-end;
+  }
+}
+
+.bubble {
+  max-width: min(680px, 88%);
+  border-radius: var(--app-radius-lg);
+  padding: var(--app-space-3) var(--app-space-4);
+  background: var(--app-assistant-bubble-bg);
+  color: var(--app-assistant-bubble-fg);
+  box-shadow: var(--app-shadow-elevated);
+
+  &--user {
+    background: var(--app-user-bubble-bg);
+    color: var(--app-user-bubble-fg);
+    border-bottom-right-radius: var(--app-radius-sm);
+  }
+
+  &:not(&--user) {
+    border-bottom-left-radius: var(--app-radius-sm);
+  }
+
+  &--error {
+    outline: 1px solid var(--app-error-fg);
+  }
+}
+
+.bubble--user ::ng-deep a {
+  color: white;
+  text-decoration: underline;
+}
+
+.bubble__cursor {
+  display: inline-block;
+  width: 8px;
+  height: 1em;
+  margin-left: 2px;
+  background: currentColor;
+  vertical-align: text-bottom;
+  animation: bubble-cursor-blink 1s steps(1) infinite;
+}
+
+@keyframes bubble-cursor-blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+.bubble__error {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--app-space-2);
+  margin-top: var(--app-space-2);
+  padding: var(--app-space-2) var(--app-space-3);
+  border-radius: var(--app-radius-sm);
+  background: var(--app-error-bg);
+  color: var(--app-error-fg);
+  font-size: 0.85rem;
+
+  mat-icon {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+}
+
+.bubble__meta {
+  display: flex;
+  align-items: center;
+  gap: var(--app-space-3);
+  margin-top: var(--app-space-2);
+  font-size: 0.72rem;
+  opacity: 0.7;
+}
+
+.bubble--user .bubble__meta {
+  opacity: 0.85;
+}
+
+.bubble__actions {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.bubble__action-btn {
+  width: 28px;
+  height: 28px;
+  line-height: 28px;
+
+  ::ng-deep .mat-mdc-button-touch-target {
+    width: 28px;
+    height: 28px;
+  }
+
+  mat-icon {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+  }
+}
+
+.bubble__edit {
+  display: flex;
+  flex-direction: column;
+  gap: var(--app-space-2);
+  min-width: min(420px, 60vw);
+}
+
+.bubble__edit-input {
+  font: inherit;
+  font-size: 0.95rem;
+  padding: var(--app-space-2) var(--app-space-3);
+  border-radius: var(--app-radius-sm);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.1);
+  color: inherit;
+  resize: vertical;
+  outline: none;
+}
+
+.bubble__edit-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--app-space-2);
+}

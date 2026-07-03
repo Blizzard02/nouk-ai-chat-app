@@ -1,0 +1,34 @@
+<div class="message-list" #scrollContainer (scroll)="onScroll()">
+  <div class="message-list__inner">
+    @if (
+      (store.activeConversation()?.messages?.length ?? 0) === 0 && !facade.isAwaitingFirstToken()
+    ) {
+      <app-empty-state
+        icon="chat_bubble_outline"
+        title="Say hello"
+        message="Send a message below to kick off this conversation."
+      />
+    } @else {
+      @for (
+        message of store.activeConversation()?.messages ?? [];
+        track message.id;
+        let last = $last
+      ) {
+        <app-message-bubble
+          [message]="message"
+          [isLastAssistant]="last && message.role === 'assistant'"
+          [actionsDisabled]="facade.isStreaming()"
+          [streaming]="facade.isStreaming() && facade.streamingMessageId() === message.id"
+          (editMessage)="editMessage.emit({ messageId: message.id, content: $event })"
+          (regenerateRequested)="regenerateRequested.emit()"
+        />
+      }
+
+      @if (facade.isAwaitingFirstToken()) {
+        <app-typing-indicator />
+      }
+    }
+
+    <div #scrollAnchor class="message-list__anchor"></div>
+  </div>
+</div>

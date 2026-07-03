@@ -1,0 +1,42 @@
+<div class="composer">
+  <div class="composer__inner">
+    <div class="composer__box">
+      <textarea
+        #textarea
+        class="composer__textarea"
+        rows="1"
+        placeholder="Message Nouk..."
+        [disabled]="disabled()"
+        [(ngModel)]="draft"
+        (input)="onInput()"
+        (keydown.enter)="onEnter($event)"
+      ></textarea>
+
+      @if (streaming()) {
+        <button
+          type="button"
+          mat-icon-button
+          class="composer__submit composer__submit--stop"
+          matTooltip="Stop generating"
+          aria-label="Stop generating"
+          (click)="stop.emit()"
+        >
+          <mat-icon>stop</mat-icon>
+        </button>
+      } @else {
+        <button
+          type="button"
+          mat-icon-button
+          class="composer__submit"
+          matTooltip="Send message"
+          aria-label="Send message"
+          [disabled]="disabled() || !draft().trim()"
+          (click)="submit()"
+        >
+          <mat-icon>arrow_upward</mat-icon>
+        </button>
+      }
+    </div>
+    <p class="composer__hint">Enter to send &middot; Shift+Enter for a new line</p>
+  </div>
+</div>

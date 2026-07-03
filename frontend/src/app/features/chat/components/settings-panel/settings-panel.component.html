@@ -1,0 +1,80 @@
+@if (conversation(); as conv) {
+  <aside class="settings-panel">
+    <header class="settings-panel__header">
+      <h3>Conversation settings</h3>
+      <button
+        type="button"
+        mat-icon-button
+        aria-label="Close settings"
+        (click)="uiState.closeSettingsPanel()"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+    </header>
+
+    <div class="settings-panel__body">
+      <label class="settings-panel__label" for="provider-select">Provider</label>
+      <mat-form-field appearance="outline" class="settings-panel__field">
+        <mat-select
+          id="provider-select"
+          [value]="conv.settings.provider"
+          (selectionChange)="onProviderChange($event)"
+        >
+          @for (provider of store.providers(); track provider.id) {
+            <mat-option [value]="provider.id" [disabled]="!provider.configured">
+              {{ provider.label }}{{ provider.configured ? '' : ' (no API key)' }}
+            </mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+      <label class="settings-panel__label" for="model-select">Model</label>
+      <mat-form-field appearance="outline" class="settings-panel__field">
+        <mat-select
+          id="model-select"
+          [value]="conv.settings.model"
+          (selectionChange)="onModelChange($event)"
+        >
+          @for (model of availableModels(); track model.id) {
+            <mat-option [value]="model.id">{{ model.label }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+      <label class="settings-panel__label" for="temperature-slider">
+        Temperature
+        <span class="settings-panel__value">{{ conv.settings.temperature }}</span>
+      </label>
+      <mat-slider class="settings-panel__slider" min="0" max="2" step="0.1" discrete>
+        <input
+          id="temperature-slider"
+          matSliderThumb
+          [value]="conv.settings.temperature"
+          (valueChange)="onTemperatureChange($event)"
+        />
+      </mat-slider>
+
+      <label class="settings-panel__label" for="max-tokens-slider">
+        Max tokens
+        <span class="settings-panel__value">{{ conv.settings.maxTokens }}</span>
+      </label>
+      <mat-slider class="settings-panel__slider" min="256" max="4096" step="256" discrete>
+        <input
+          id="max-tokens-slider"
+          matSliderThumb
+          [value]="conv.settings.maxTokens"
+          (valueChange)="onMaxTokensChange($event)"
+        />
+      </mat-slider>
+
+      <label class="settings-panel__label" for="system-prompt">System prompt</label>
+      <textarea
+        id="system-prompt"
+        class="settings-panel__textarea"
+        rows="6"
+        [ngModel]="conv.settings.systemPrompt"
+        (ngModelChange)="onSystemPromptInput($event)"
+      ></textarea>
+    </div>
+  </aside>
+}

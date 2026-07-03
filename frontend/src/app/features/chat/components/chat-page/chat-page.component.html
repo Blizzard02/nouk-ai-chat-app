@@ -1,0 +1,33 @@
+<div class="chat-page">
+  <div class="chat-page__main">
+    @if (store.loadingConversation()) {
+      <div class="chat-page__loading">
+        @for (row of skeletonRows; track row) {
+          <div class="chat-page__loading-row">
+            <app-skeleton width="70%" height="52px" radius="18px" />
+          </div>
+        }
+      </div>
+    } @else if (store.activeConversation()) {
+      <app-message-list
+        (editMessage)="onEditMessage($event)"
+        (regenerateRequested)="onRegenerate()"
+      />
+      <app-composer
+        [streaming]="facade.isStreaming()"
+        (send)="onSend($event)"
+        (stop)="facade.stop()"
+      />
+    } @else {
+      <app-empty-state
+        icon="search_off"
+        title="Conversation not found"
+        message="It may have been deleted, or the link is no longer valid."
+      />
+    }
+  </div>
+
+  @if (uiState.settingsPanelOpen() && store.activeConversation()) {
+    <app-settings-panel />
+  }
+</div>
